@@ -25,13 +25,10 @@ route.post('/', function(req, res){
         return res.status(422).json(assistant.getErrors().map(function(err){
             return {"Error": err.errorMessage, "Name": err.fieldSchema.name}}));
     }
-    return assistantModel.create(req.body).then(newAssist => res.json(newAssist)).catch(err => res.status(500).send(err.message));
+    return assistantModel.create(req.body).then(newAssist => res.json(newAssist)).catch(err => res.status(500).send(err.message));//return err with same convention {en object}
 })
 
 route.get('/', function(req, res){
-    if(_.isEmpty(req.query)){
-        return assistantModel.findAll().then( value => res.json(value)).catch(err => res.status(500).send(err.message));
-    }
     return assistantModel.findAll(req.query).then(value => res.json(value)).catch(err=> res.status(500).send(err.message));
 })
 
@@ -64,6 +61,6 @@ instanceRouter.put('/', function(req, res){
     return asistantModel.update(req.assistant.id, req.body).then(value=> res.json(value)).catch(err=>res.status(500).send(err.message));
 })
 
-
+//path should go from 
 
 module.exports = route;

@@ -34,15 +34,12 @@ route.post('/', function(req, res){
             return res.status(422).json([{ "message": "Room not available at this time", "name": "room, time" }]);
         }
         return workshopModel.create(req.body).then(newWShop => res.json(newWShop));
-    }).catch(err=> res.status(500).send(err.message));
+    }).catch(err=> res.status(500).send(err.message));//return object {"message":"content of message"} on every promise I did
     
 })
 
 route.get('/', function(req, res){
-    if(_.isEmpty(req.query)){
-        return workshopModel.findAll().then( value => res.json(value)).catch(err => res.status(500).send(err.message));
-    }
-    return workshopModel.findAll(req.query).then(value => res.json(value)).catch(err=> res.status(500).send(err.message));
+    return workshopModel.findAll(req.query).then(value => res.json(value)).catch(err=> res.status(500).send(err.message));//return object {"message":"content of message"} on every promise I did
 })
 
 function instanceValidator(req, res, next){
